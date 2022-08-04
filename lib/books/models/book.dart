@@ -6,16 +6,16 @@ part 'book.g.dart';
 @JsonSerializable()
 class Book extends Equatable {
   final int isbn;
-  final String name;
+  final String title;
   final int yearPublished;
 
   const Book(
-      {required this.isbn, required this.name, required this.yearPublished});
+      {required this.isbn, required this.title, required this.yearPublished});
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
 
   Map<String, dynamic> toJson() => _$BookToJson(this);
 
   @override
-  List<Object> get props => [isbn, name, yearPublished];
+  List<Object> get props => [isbn, title, yearPublished];
 }

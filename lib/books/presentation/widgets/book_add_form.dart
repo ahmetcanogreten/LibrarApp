@@ -15,13 +15,13 @@ class _BookAddFormState extends State<BookAddForm> {
   final _formKey = GlobalKey();
 
   final _isbnController = TextEditingController();
-  final _nameController = TextEditingController();
+  final _titleController = TextEditingController();
   final _yearController = TextEditingController();
 
   @override
   void dispose() {
     _isbnController.dispose();
-    _nameController.dispose();
+    _titleController.dispose();
     _yearController.dispose();
     super.dispose();
   }
@@ -36,23 +36,37 @@ class _BookAddFormState extends State<BookAddForm> {
           TextFormField(
             controller: _isbnController,
             keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'ISBN',
+            ),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
           TextFormField(
-            controller: _nameController,
+            controller: _titleController,
+            decoration: const InputDecoration(
+              labelText: 'Name',
+            ),
           ),
           TextFormField(
             controller: _yearController,
             keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Year',
+            ),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
+          const SizedBox(height: 32),
           ElevatedButton(
               onPressed: () {
                 context.read<BookBloc>().add(BookAdd(
                     book: Book(
                         isbn: int.parse(_isbnController.text),
-                        name: _nameController.text,
+                        title: _titleController.text,
                         yearPublished: int.parse(_yearController.text))));
+
+                _isbnController.clear();
+                _titleController.clear();
+                _yearController.clear();
               },
               child: const Text('Add Book'))
         ],

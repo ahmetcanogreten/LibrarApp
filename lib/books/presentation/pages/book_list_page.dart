@@ -10,25 +10,30 @@ class BookListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: BlocBuilder<BookBloc, BookState>(
-          builder: (context, state) {
-            if (state is BookInitial) {
-              return const Text('Book Initial');
-            } else if (state is BookLoading) {
-              return const Text('Book Loading');
-            } else if (state is BookLoaded) {
-              return Column(
-                children: [
-                  BookList(books: state.books),
-                  Expanded(child: SizedBox()),
-                  BookAddForm(),
-                ],
-              );
-            } else {
-              return const Text('Book Bloc Unexpected Return');
-            }
-          },
+      appBar: AppBar(
+        title: const Text('Books'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Center(
+          child: BlocBuilder<BookBloc, BookState>(
+            builder: (context, state) {
+              if (state is BookInitial) {
+                return const Text('Book Initial');
+              } else if (state is BookLoading) {
+                return const Text('Book Loading');
+              } else if (state is BookLoaded) {
+                return Column(
+                  children: [
+                    Expanded(child: BookList(books: state.books)),
+                    const BookAddForm(),
+                  ],
+                );
+              } else {
+                return const Text('Book Bloc Unexpected Return');
+              }
+            },
+          ),
         ),
       ),
     );

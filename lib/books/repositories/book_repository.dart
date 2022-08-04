@@ -2,9 +2,9 @@ import 'package:library_app/books/models/book.dart';
 
 abstract class IBookRepository {
   Future<List<Book>> getAllBooks();
-  Future<void> addBook(Book bookToBeAdded);
-  Future<void> deleteBook(Book bookToBeDeleted);
-  Future<void> updateBook(Book bookBeforeUpdate, Book bookAfterUpdate);
+  Future<List<Book>> addBook(Book bookToBeAdded);
+  Future<List<Book>> deleteBook(Book bookToBeDeleted);
+  Future<List<Book>> updateBook(Book bookBeforeUpdate, Book bookAfterUpdate);
 }
 
 class BookRepository implements IBookRepository {
@@ -18,19 +18,23 @@ class BookRepository implements IBookRepository {
   }
 
   @override
-  Future<void> addBook(Book bookToBeAdded) async {
+  Future<List<Book>> addBook(Book bookToBeAdded) async {
     _books.add(bookToBeAdded);
+    return _books;
   }
 
   @override
-  Future<void> deleteBook(Book bookToBeDeleted) async {
+  Future<List<Book>> deleteBook(Book bookToBeDeleted) async {
     _books.remove(bookToBeDeleted);
+    return _books;
   }
 
   @override
-  Future<void> updateBook(Book bookBeforeUpdate, Book bookAfterUpdate) async {
+  Future<List<Book>> updateBook(
+      Book bookBeforeUpdate, Book bookAfterUpdate) async {
     final insertIndex = _books.indexOf(bookBeforeUpdate);
     _books.remove(bookBeforeUpdate);
     _books.insert(insertIndex, bookAfterUpdate);
+    return _books;
   }
 }

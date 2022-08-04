@@ -8,8 +8,65 @@ class BookList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: books.map((eachBook) => BookRow(book: eachBook)).toList(),
+    return ListView(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: const Text('ISB', textAlign: TextAlign.right),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  'Year',
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              flex: 4,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: const Text('Title'),
+              ),
+            ),
+            const Expanded(flex: 2, child: SizedBox())
+          ],
+        ),
+        ...books.map((eachBook) => BookRow(book: eachBook)).toList()
+      ],
     );
   }
 }

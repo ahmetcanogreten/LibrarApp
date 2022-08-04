@@ -21,29 +21,35 @@ class BookBloc extends Bloc<BookEvent, BookState> {
     on<BookAdd>(
       (event, emit) async {
         emit(BookLoading());
-        await _bookRepository.addBook(event.book);
-        final books = await _bookRepository.getAllBooks();
+        final books = await _bookRepository.addBook(event.book);
         emit(BookLoaded(books: books));
       },
     );
     on<BookDelete>(
       (event, emit) async {
         emit(BookLoading());
-        await _bookRepository.deleteBook(event.book);
-        final books = await _bookRepository.getAllBooks();
+        final books = await _bookRepository.deleteBook(event.book);
         emit(BookLoaded(books: books));
       },
     );
     on<BookUpdate>(
       (event, emit) async {
         emit(BookLoading());
-        await _bookRepository.updateBook(
+        final books = await _bookRepository.updateBook(
             event.bookBeforeUpdate, event.bookAfterUpdate);
-        final books = await _bookRepository.getAllBooks();
         emit(BookLoaded(books: books));
       },
     );
 
     add(BooksList());
+
+    add(const BookAdd(
+        book: Book(isbn: 1, title: 'Book 1', yearPublished: 2020)));
+
+    add(const BookAdd(
+        book: Book(isbn: 2, title: 'Book 2', yearPublished: 2020)));
+
+    add(const BookAdd(
+        book: Book(isbn: 3, title: 'Book 3', yearPublished: 2020)));
   }
 }
